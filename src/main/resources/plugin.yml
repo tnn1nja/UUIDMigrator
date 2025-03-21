@@ -8,6 +8,8 @@ commands:
   migrate:
     description: migrate a chunk
     usage: /migrate
+    aliases: [ m ]
   fullmigrate:
     description: migrate all chunks
     usage: /fullmigrate
+    aliases: [ fm ]
