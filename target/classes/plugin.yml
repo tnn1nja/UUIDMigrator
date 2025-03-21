@@ -1,0 +1,13 @@
+name: UUIDMigrator
+version: '0.0.1'
+main: net.tnn1nja.uuidMigrator.UUIDMigrator
+api-version: '1.21'
+authors: [ tnn1nja ]
+depend: [ NBTAPI ]
+commands:
+  migrate:
+    description: migrate a chunk
+    usage: /migrate
+  fullmigrate:
+    description: migrate all chunks
+    usage: /fullmigrate
