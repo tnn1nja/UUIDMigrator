@@ -23,7 +23,7 @@ public final class UUIDMigrator extends JavaPlugin implements CommandExecutor {
     Logger log = Bukkit.getLogger();
     UUID ItsAllGud = UUID.fromString("48a71f98-3e23-4e1c-aba9-39bd8a147b71");
     UUID Its4llGud = UUID.fromString("42609fbb-d926-4790-83d3-f034bd20064e");
-    World w = Bukkit.getWorlds().getFirst();
+    World w;
     int startX = -704;
     int currentX = startX;
     int endX = 287;
@@ -37,6 +37,7 @@ public final class UUIDMigrator extends JavaPlugin implements CommandExecutor {
         getCommand("migrate").setExecutor(me);
         getCommand("fullmigrate").setExecutor(me);
         me = this;
+        w = Bukkit.getWorlds().getFirst();
     }
 
     @Override
@@ -88,7 +89,8 @@ public final class UUIDMigrator extends JavaPlugin implements CommandExecutor {
     }
 
     public void migrateAllChunks(){
-        log.info("World Migration Started.");
+        log.info("World Migration Started, Server Unfrozen.");
+        Bukkit.getServerTickManager().setFrozen(false);
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(me, new Runnable() {
             @Override
@@ -98,8 +100,8 @@ public final class UUIDMigrator extends JavaPlugin implements CommandExecutor {
                     currentX += 1;
                     log.info("Migrated Chunk Line at x = " + currentX);
                 }else{
-                    log.info("World Migration Completed.");
-                    Bukkit.getScheduler().cancelTasks(me);
+                    log.info("World Migration Completed, Server Shutting Down...");
+                    Bukkit.shutdown();
                 }
             }
         }, 0L, 20L);
